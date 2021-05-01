@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DOM</title>
+        <style>
+        body {
+            text-align: center;
+        }
+        ul {
+            list-style: none;
+        }
+        </style>
+    </head>
+    <body>
+        <h1>TODO LIST</h1>
+        Add New Todo: <input style="margin-right: 20px;" type="text" name="todo" id="item">
+        Due Time: <input style="margin-right: 20px;" type="time" id="time">
+        <button id="add">ADD</button>
+
+        <ul>
+
+        </ul>
+        <script>
+            var ul = document.querySelector('ul');
+            var inputTodo = document.getElementById("item");
+            var inputTime = document.getElementById("time");
+            var button = document.getElementById("add");
+
+            button.addEventListener('click', function() {
+                if (inputTodo.value.length && inputTime.value.length > 0) {
+                    var li = document.createElement("li");
+                    var btn = document.createElement("button");
+                    li.appendChild(document.createTextNode(inputTodo.value));
+                    li.appendChild(document.createTextNode(inputTime.value));
+                    li.appendChild(btn);
+                    btn.textContent = 'Delete';
+                    ul.appendChild(li);
+                    inputTodo.value = "";
+                    inputTime.value = '';
+
+                    btn.onclick = function () {
+                        ul.removeChild(li);
+                    }
+                }
+                
+            })
+
+
+
+           
+        </script>
+    </body>
+</html>

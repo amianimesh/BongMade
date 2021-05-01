@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <title>AVRL</title>
+        <style>
+            body {
+                margin: 0;
+                
+            }
+            .container {
+                height:300px;
+                width: 1000px;
+                margin-left: 250px;
+                margin-top: 100px;
+                border: 10px solid;
+                display: flex;
+                background: rgb(24, 23, 23);
+            }
+
+            .box {
+                display: flex;
+                align-items: flex-end;
+            }
+
+            .bar1 {
+                display: inline-block;
+                width: 200px;
+                height: 300px;
+                background-color: #99ca27;
+                
+            }
+
+            .bar2 {
+                display: inline-block;
+                width: 200px;
+                height: 300px;
+                background-color: #ad2d2d;
+                
+            }
+
+            .bar3 {
+                display: inline-block;
+                width: 200px;
+                height: 300px;
+                background-color: #1a24b6;
+                
+            }
+
+            .bar4 {
+                display: inline-block;
+                width: 200px;
+                height: 300px;
+                background-color: #1bb86e;
+                
+            }
+
+            .bar5 {
+                display: inline-block;
+                width: 200px;
+                height: 300px;
+                background-color: #c52771;
+                
+            }
+
+            .button {
+                margin-top: 50px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div>
+        <div class="container">
+            <div class="box">
+                <div id="bar1" class="bar1"></div>
+                <div id="bar2" class="bar2"></div>
+                <div id="bar3" class="bar3"></div>
+                <div id="bar4" class="bar4"></div>
+                <div id="bar5" class="bar5"></div>
+            </div>
+            <script>     
+                var  firstBarInterVal;
+                var  secondBarInterVal;
+                var  thirdBarInterVal;
+                var  fourthBarInterVal;
+                var  fifthBarInterVal;
+
+                function animationStart() {
+                       firstBarInterVal =  animate(document.getElementById('bar1'), [100, 250, 200, 150]);
+                       secondBarInterVal = animate(document.getElementById('bar2'), [50, 200, 100, 300]);
+                       thirdBarInterVal  = animate(document.getElementById('bar3'), [300, 20, 250, 100]);
+                       fourthBarInterVal = animate(document.getElementById('bar4'), [75, 145, 215, 95]);
+                       fifthBarInterVal = animate(document.getElementById('bar5'), [275, 115, 80, 200]);  
+                                
+                }
+
+                function animationStop() {
+                    
+                   clearInterval(firstBarInterVal)
+                   clearInterval(secondBarInterVal)
+                   clearInterval(thirdBarInterVal)
+                   clearInterval(fourthBarInterVal)
+                   clearInterval(fifthBarInterVal)
+                }
+
+
+                function animate(element, heights) {
+                    let currentHeight = 0;
+                    let loop = 0;
+                    var interval = setInterval(function() {
+                        if (currentHeight === heights[loop]) {
+                            loop++;
+
+                            if (!heights[loop]) {
+                                loop = 0;
+                            }
+                        } else  {
+                            if (currentHeight > heights[loop]) {
+                                currentHeight--;
+                            } else {
+                                currentHeight++;
+                            }
+                            element.style.height = currentHeight + 'px';
+                        }
+                    }, 2);
+                    return interval
+                }
+
+            </script>
+        </div>
+        <div class="button">
+            <button style="background: chartreuse; width: 100px; margin: chocolate; margin-left: 30vw; height: 35px;" onclick="animationStart()">Start</button>
+            <button style="background: red; width: 100px; margin: black; margin-left: 24vw;  height: 35px;" onclick="animationStop()">Stop</button>
+        </div>
+    </div>
+    </body>
+</html>
