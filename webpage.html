@@ -9,42 +9,100 @@
         ul {
             list-style: none;
         }
+        li {
+            background-color: rosybrown;
+            padding: 10px;
+            margin: 20px;
+            font-size: 20px;
+        }
+        li span {
+            margin-left: 10px;
+        }
+        li button {
+            margin-left: 20px;
+            color: red;;
+            width: 60px;
+            height: 30px;
+        }
+        .user {
+            background-color: silver;
+            padding: 10px;
+            margin: 10px;
+        }
         </style>
     </head>
     <body>
-        <h1>TODO LIST</h1>
-        Add New Todo: <input style="margin-right: 20px;" type="text" name="todo" id="item">
+        <h1 style="color: seagreen;">TODO LIST</h1>
+        Add New Todo: <input style="margin-right: 20px; width: 200px;" type="text" id="item">
+        Due Date: <input style="margin-right: 20px;" type="date" id="date">
         Due Time: <input style="margin-right: 20px;" type="time" id="time">
         <button id="add">ADD</button>
 
         <ul>
 
         </ul>
+
+        <div id="fetch">
+
+        </div>
+
+
         <script>
             var ul = document.querySelector('ul');
             var inputTodo = document.getElementById("item");
             var inputTime = document.getElementById("time");
+            var inputDate = document.getElementById("date");
             var button = document.getElementById("add");
 
-            button.addEventListener('click', function() {
-                if (inputTodo.value.length && inputTime.value.length > 0) {
-                    var li = document.createElement("li");
-                    var btn = document.createElement("button");
-                    li.appendChild(document.createTextNode(inputTodo.value));
-                    li.appendChild(document.createTextNode(inputTime.value));
+
+            var li = document.createElement("li");
+            var span1 = document.createElement("span");
+            var span2 = document.createElement("span");
+            var span3 = document.createElement("span");
+            var btn = document.createElement("button");
+
+            function createListElement() {
+                    li.appendChild(span1);
+                    span1.textContent = inputTodo.value;
+                    li.appendChild(span3);
+                    span3.textContent= inputDate.value;
+                    li.appendChild(span2);
+                    span2.textContent= inputTime.value;
                     li.appendChild(btn);
                     btn.textContent = 'Delete';
                     ul.appendChild(li);
-                    inputTodo.value = "";
+                    inputTodo.value = '';
                     inputTime.value = '';
+                    inputDate.value = '';
+            }
+
+            button.addEventListener('click', function() {
+                if (inputTodo.value.length && inputTime.value.length > 0) {
+                    createListElement();
+                    
 
                     btn.onclick = function () {
                         ul.removeChild(li);
                     }
-                }
-                
+                }    
             })
 
+            function fetchData() {
+                fetch('https://jsonplaceholder.typicode.com/users')
+                .then(response => { return response.json()})
+                .then(data => {
+                    const userData = data.map(user => {
+                        return `<div class='user'>
+                                <p>Name: ${user.name}</p>
+                                </div>
+                                `
+                    }).join('');
+
+                    document.getElementById('fetch').innerHTML = userData;
+                })
+            }
+
+            fetchData();
 
 
            
