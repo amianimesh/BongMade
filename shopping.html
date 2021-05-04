@@ -45,16 +45,25 @@
     
 
     <script>
-      function fetchData() {
-      fetch('https://jsonplaceholder.typicode.com/users' /*, {
+      function postData() {
+      fetch('https://jsonplaceholder.typicode.com/users' , {
         method: 'POST',
         headers: {
           'Content-Type' : 'application/json'
         },
         body: JSON.stringify({
           name: 'Rakesh Rakshit' 
-        })}*/
+        })}
       )
+      .then(response =>{ return response.json()})
+      .then(data => {
+        console.log(data);
+      })
+    }
+
+
+      function fetchData() {
+      fetch('https://jsonplaceholder.typicode.com/users')
       .then(response =>{ return response.json()})
       .then(data => {
         console.log(data);
@@ -71,7 +80,11 @@
       });
       }
 
+      postData();
+
       fetchData();
+
+      
 
       
       const list = document.querySelector('ul');

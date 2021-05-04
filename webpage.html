@@ -6,6 +6,13 @@
         body {
             text-align: center;
         }
+        .data {
+            background-color: lightblue;
+            padding: 20px;
+            margin: 10px;
+            text-align: left;
+        }
+        
         ul {
             list-style: none;
         }
@@ -29,14 +36,28 @@
             padding: 10px;
             margin: 10px;
         }
+        #add {
+            margin-left: 15px;
+        }
         </style>
     </head>
     <body>
         <h1 style="color: seagreen;">TODO LIST</h1>
-        Add New Todo: <input style="margin-right: 20px; width: 200px;" type="text" id="item">
-        Due Date: <input style="margin-right: 20px;" type="date" id="date">
-        Due Time: <input style="margin-right: 20px;" type="time" id="time">
-        <button id="add">ADD</button>
+        <div class="data">
+        <span style="font-weight: bold;">Add New Todo:</span> <input style="margin: 10px; width: 200px; background: rgb(202, 216, 230);" type="text" id="item"><br>
+        <span style="font-weight: bold;">Due Date:</span> <input style="margin: 10px; background: rgb(203, 218, 233);" type="date" id="date"><br>
+        <span style="font-weight: bold;">Due Time:</span>  <input style="margin: 10px; background: rgb(202, 219, 236);" type="time" id="time"><br>
+        <!-- Pets: <select><option value="" disabled selected>Pet</option>
+            <option value="dog">Dog</option>
+            <option value="cat">Cat</option>
+        </select><br>
+        <div style="margin: 10px;">
+        Car:</span> <br>
+             <input type="checkbox">Audi<br>
+             <input type="checkbox">Volvo<br>
+            </div> -->
+        <button id="add" style="background:  #7dc7f8; width: 60px; margin: 10px;">ADD</button>
+        </div>
 
         <ul>
 
@@ -54,14 +75,29 @@
             var inputDate = document.getElementById("date");
             var button = document.getElementById("add");
 
+            /*button.addEventListener('click', function(){
+                var li = document.createElement("p");
+                li.appendChild(document.createTextNode(inputTodo.value));
+                li.appendChild(document.createTextNode(inputDate.value));
+                var btn = document.createElement("button");
+                btn.textContent = 'Delete'
+                li.appendChild(btn);
+                ul.appendChild(li);
+                inputTodo.value = '';
 
-            var li = document.createElement("li");
-            var span1 = document.createElement("span");
-            var span2 = document.createElement("span");
-            var span3 = document.createElement("span");
-            var btn = document.createElement("button");
+                btn.onclick = function () {
+                    ul.removeChild(li);
+                }
+            })*/
+
 
             function createListElement() {
+
+                var li = document.createElement("li");
+                    var span1 = document.createElement("span");
+                    var span2 = document.createElement("span");
+                    var span3 = document.createElement("span");
+                    var btn = document.createElement("button");
                     li.appendChild(span1);
                     span1.textContent = inputTodo.value;
                     li.appendChild(span3);
@@ -74,18 +110,35 @@
                     inputTodo.value = '';
                     inputTime.value = '';
                     inputDate.value = '';
-            }
-
-            button.addEventListener('click', function() {
-                if (inputTodo.value.length && inputTime.value.length > 0) {
-                    createListElement();
-                    
 
                     btn.onclick = function () {
                         ul.removeChild(li);
                     }
+            }
+
+           
+            button.addEventListener('click', function() {
+                if (inputTodo.value.length && inputTime.value.length > 0) {
+                   
+
+                    createListElement();
                 }    
             })
+
+            /*function myFunction() {
+                var x = document.createElement("select");
+                x.setAttribute("id", "mySelect");
+                document.body.appendChild(x);
+
+                var z = document.createElement("option");
+                z.setAttribute("value", "volvocar");
+                var t = document.createTextNode("Volvo");
+                z.appendChild(t);
+                document.getElementById("mySelect").appendChild(z);
+            }
+
+            myFunction();*/
+
 
             function fetchData() {
                 fetch('https://jsonplaceholder.typicode.com/users')
@@ -94,6 +147,7 @@
                     const userData = data.map(user => {
                         return `<div class='user'>
                                 <p>Name: ${user.name}</p>
+                                <p>Email: ${user.email}</p>
                                 </div>
                                 `
                     }).join('');
